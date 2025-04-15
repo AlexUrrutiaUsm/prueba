@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  maquina2:
+    build: 
+      context: .
+      dockerfile: Dockerfile.maquina2
+    ports:
+      - "8082:8082"
+    networks:
+      - maquinas-network
+
+  maquina3:
+    build:
+      context: .
+      dockerfile: Dockerfile.maquina3
+    ports:
+      - "8083:8083"
+    networks:
+      - maquinas-network
+
+  maquina4:
+    build:
+      context: .
+      dockerfile: Dockerfile.maquina4
+    ports:
+      - "8084:8084"
+    networks:
+      - maquinas-network
+
+  maquina1:
+    build:
+      context: .
+      dockerfile: Dockerfile.maquina1
+    networks:
+      - maquinas-network
+    depends_on:
+      - maquina2
+      - maquina3
+      - maquina4
+
+networks:
+  maquinas-network:
+    driver: bridge
